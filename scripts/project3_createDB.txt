@@ -1,9 +1,0 @@
-use NBAD
-
-db.connections.insertOne({"name": "Race1", "topic": "Offroad Race", "details": "This is the first offroad race", "date": "08/21/2022", "startTime": "11:00", "endTime": "11:00", "hostName": "Matthew Wieser", "image": "/images/jeep.jpg", "location": "Shelby, NC"})
-
-db.connections.insertOne({"name": "Race2", "topic": "Offroad Race", "details": "This is the second offroad race", "date": "08/21/2022", "startTime": "11:00", "endTime": "11:00", "hostName": "Matthew Wieser", "image": "/images/red-car.jpg", "location": "Charlotte, NC"})
-
-db.connections.insertOne({"name": "Auction1", "topic": "Auction", "details": "This is the first auction", "date": "08/30/2022", "startTime": "11:00", "endTime": "11:00", "hostName": "Matthew Wieser", "image": "/images/junkyard.jpg", "location": "Charlotte, NC"})
-
-db.connections.insertOne({"name": "Auction2", "topic": "Auction", "details": "This is the second auction", "date": "08/30/2022", "startTime": "11:00", "endTime": "11:00", "hostName": "Matthew Wieser", "image": "/images/speedway.jpg", "location": "Charlotte, NC"})
