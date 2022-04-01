@@ -1,0 +1,20 @@
+{
+  "name": "module8startingcode",
+  "version": "1.0.0",
+  "description": "Integrate a MongoDB database using Mongoose",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthew Wieser",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "luxon": "^2.3.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.2.8",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2"
+  }
+}
