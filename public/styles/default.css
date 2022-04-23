@@ -284,3 +284,81 @@ input{
     text-align: center;
     margin-top: 100px;
 }
+
+#first-name-label{
+    margin-left: 100px;
+    margin-bottom: -30px;
+    float: left;
+}
+
+#firstName{
+    margin-left: 65px;
+    margin-bottom: 20px;
+    float: left;
+    display: flex;
+}
+
+#last-name-label{
+    margin-left: 105px;
+}
+
+#lastName{
+    margin-left: 65px;
+    margin-top: 10px;
+}
+
+#email-label{
+    margin-left: 125px;
+}
+
+#email{
+    margin-top: 10px;
+    margin-left: 65px;
+}
+
+#password-label{
+    margin-left: 105px;
+}
+
+#password{
+    margin-top: 10px;
+    margin-left: 65px;
+}
+
+#sign-up-button{
+    margin-left: 135px;
+}
+
+#sign-up-form{
+    height: fit-content;
+    width: fit-content;
+    background-color: #011627;
+    margin:auto;
+    margin-top: 5%;
+    border: solid orange 5px;
+    padding: 20px;
+    padding-right: 75px;
+    padding-bottom: 20px;
+}
+
+.success{
+    background: green;
+    font-size: x-large;
+    color: #fff;
+    width: 70%;
+    text-align: center;
+    padding: 10px 10px;
+    margin-top: 20px;
+    margin: auto;
+}
+
+.error{
+    background: #F3DE3F;
+    font-size: x-large;
+    color: #FF3A20;
+    width: 70%;
+    text-align: center;
+    padding: 10px 10px;
+    margin-top: 20px;
+    margin: auto;
+}

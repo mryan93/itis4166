@@ -11,13 +11,20 @@ exports.index = (req, res, next) => {
 // GET /connections/new: send html form for creating a new connection
 
 exports.new = (req, res) =>{
-    res.render('./new-connection');
+    if(!req.session.user){
+        req.flash('error', 'You are not logged in');
+        return res.redirect('../login');
+    } else{
+        res.render('./new-connection');
+    }
+    
 }
 
 //POST /connections: create a new connection
 
 exports.create = (req, res, next)=>{
     let connection = new model(req.body); //create document
+    connection.hostName = req.session.user;
     connection.save() //insert document to db
     .then((connection)=>{
         console.log(connection);
@@ -40,7 +47,7 @@ exports.show = (req, res, next) =>{
         err.status = 400;
         return next(err);
     }
-    model.findById(id)
+    model.findById(id).populate('hostName', 'firstName lastName')
     .then(connection=>{
         if(connection){
             return res.render('./connection-detail', {connection});

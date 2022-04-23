@@ -9,7 +9,7 @@
             <img src="<%= connection.image%>" alt="A Yellow Jeep" id="jeep-img">
         </a>
         <h2 id="detail-paragraph">
-            Hosted by <%= connection.hostName%>
+            Hosted by <%= connection.hostName.firstName + ' ' + connection.hostName.lastName%>
         </h2>
         <h3 id="date">
             <%= connection.date%>

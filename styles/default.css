@@ -282,3 +282,13 @@ input {
 #contact-details {
   color: white;
 }
+
+#profile-text{
+  font-size: larger;
+  color: black;
+  margin: auto;
+}
+
+#profile-welcome{
+  margin: auto;
+}

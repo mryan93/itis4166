@@ -8,7 +8,7 @@ const connectionSchema = new Schema({
     date: {type: Date, required: [true, 'date is required']},
     startTime: {type: String, required: [true, 'start time is required']},
     endTime: {type: String, required: [true, 'end time is required']},
-    hostName: {type: String, required: [true, 'host name is required']},
+    hostName: {type: Schema.Types.ObjectId, ref: 'User'},
     image: {type: String, required: [true, 'image url is required']},
     location: {type: String, required: [true, 'location is required']}
 }

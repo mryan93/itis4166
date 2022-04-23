@@ -21,11 +21,17 @@
                 <a href="/connections/new">
                 <h1>Start New Connection | </h1>
             </a>
-            <a>
+            <a href="/login">
                 <h1> Login |</h1>
             </a>
-            <a>
-                <h1> Sign Up</h1>
+            <a href="/new">
+                <h1> Sign Up |</h1>
+            </a>
+            <a href="/profile">
+                <h1> Profile |</h1>
+            </a>
+            <a href="/logout">
+                <h1> Logout</h1>
             </a>
             </div>
             </nav>    
@@ -39,3 +45,15 @@
         </div>
     
     </header>
+
+    <%if(errorMessages.length > 0){
+        errorMessages.forEach(message=>{%>
+            <div class="error"><%=message%></div>
+       <% });
+    }%>
+
+    <%if(successMessages.length > 0){
+        successMessages.forEach(message=>{%>
+            <div class="success"><%=message%></div>
+       <% });
+    }%>
