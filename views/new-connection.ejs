@@ -1,13 +1,15 @@
 <%- include('./partials/header.ejs')%>
     <form id="connection-form" action="/connections" method="POST">
-        <label for="topic">Topic</label>
+        <!--<label for="topic">Topic</label>
         <input type="text" placeholder="Enter Topic Here" id="topic" name="topic" required>
+        -->
+        <label for="topic" id="topic-label">Topic</label>
+        <select placeholder="Choose a Topic" id="topic" name="topic" required>
+            <option value="Auction">Auction</option>
+            <option value="Offroad Race">Offroad Race</option>
+        </select>
         <label for="title-input">Name</label>
         <input type="text" placeholder="Enter Name Here" id="title-input" name="name" required>
-        <!--    HOST NAME GOES HERE
-        <label for="host">Host</label>
-        <input type="text" placeholder="Enter Host Here" id="host" name="hostName" required>
-        -->
         <label for="details-input" id="details-label">Details</label>
         <input type="text" placeholder="Enter Details Here" id="details-input" name="details" required minlength="10">
         <label for="where-input" id="where-label">Where</label>

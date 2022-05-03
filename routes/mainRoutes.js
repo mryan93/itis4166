@@ -12,7 +12,9 @@ newRouter.get('/about', controller.about);
 
 newRouter.get('/contact', controller.contact);
 
+// GET /index: send home page
 
+newRouter.get('/', controller.home);
 
 
 module.exports = newRouter;

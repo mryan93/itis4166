@@ -1,5 +1,7 @@
 const connection = require('../models/connection');
 const model = require('../models/connection');
+const rsvpModel = require('../models/rsvp');
+const {isLoggedIn} = require('../middlewares/auth');
 
 // Render all connections
 exports.index = (req, res, next) => {
@@ -64,20 +66,10 @@ exports.show = (req, res, next) =>{
 
 exports.edit = (req, res, next) =>{
     let id = req.params.id;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid connection id');
-        err.status = 400;
-        return next(err);
-    }
+
     model.findById(id)
     .then(connection=>{
-        if(connection){
-            return res.render('./edit', {connection});
-        } else{
-            let err = new Error('Cannot find a connection with id ' + id);
-            err.status = 404;
-            return next(err);
-        }
+        return res.render('./edit', {connection});
     })
     .catch(err=>next(err));
 }
@@ -88,21 +80,9 @@ exports.update = (req, res, next) =>{
     let connection = req.body;
     let id = req.params.id;
 
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid connection id');
-        err.status = 400;
-        return next(err);
-    }
-
     model.findByIdAndUpdate(id, connection, {useFindAndModify: false, runValidators: true})
     .then(connection=>{
-        if(connection){
-            res.redirect('/connections/'+id);
-        } else{
-            let err = new Error('Cannot find a connection with id ' + id);
-            err.status = 404;
-            next(err);
-        }
+        res.redirect('/connections/'+id);
     })
     .catch(err=>{
         if(err.name === 'ValidationError')
@@ -115,21 +95,17 @@ exports.update = (req, res, next) =>{
 exports.delete = (req, res, next) =>{
     let id = req.params.id;
 
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid connection id');
-        err.status = 400;
-        return next(err);
-    }
-
     model.findByIdAndDelete(id, {useFindAndModify: false})
     .then(connection=>{
-        if(connection){
-            res.redirect('/connections');
-        } else{
-            let err = new Error('Cannot find a connection with id ' + id);
-            err.status = 404;
-            return next(err);
-        }
+        res.redirect('/connections');
     })
     .catch(err=>next(err));
+}
+
+//POST /connections/:id, create a new rsvp
+
+exports.newRsvp = (req, res, next) =>{
+    if(!req.session.user){
+        return res.redirect('../login');
+    }
 }

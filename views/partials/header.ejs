@@ -21,18 +21,21 @@
                 <a href="/connections/new">
                 <h1>Start New Connection | </h1>
             </a>
-            <a href="/login">
-                <h1> Login |</h1>
-            </a>
-            <a href="/new">
-                <h1> Sign Up |</h1>
-            </a>
-            <a href="/profile">
-                <h1> Profile |</h1>
-            </a>
-            <a href="/logout">
-                <h1> Logout</h1>
-            </a>
+            <%if(!user){%>
+                <a href="/login">
+                    <h1> Login |</h1>
+                </a>
+                <a href="/new">
+                    <h1> Sign Up |</h1>
+                </a>
+            <%} else {%>
+                <a href="/profile">
+                    <h1> Profile |</h1>
+                </a>
+                <a href="/logout">
+                    <h1> Logout</h1>
+                </a>
+            <%}%>
             </div>
             </nav>    
         </div>

@@ -292,3 +292,37 @@ input {
 #profile-welcome{
   margin: auto;
 }
+
+select{
+  margin-top: 30px;
+  width: 200px;
+}
+
+#topic-label{
+  margin-left: -50px;
+}
+
+#profile-text{
+  font-size: 25px;
+  color: orange;
+  margin: auto;
+}
+
+#profile-welcome{
+  font-size: 35px;
+}
+
+select{
+  margin-top: 30px;
+  width: 200px;
+}
+
+#topic-label{
+  margin-left: -50px;
+}
+
+#createdConnections{
+    color: orange;
+    font-size: larger;
+}
+

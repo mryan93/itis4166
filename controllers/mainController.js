@@ -11,3 +11,9 @@ exports.about = (req, res) =>{
 exports.contact = (req, res)=>{
     res.render('./contact');
 }
+
+// Get /index: send home page
+
+exports.home = (req, res, next)=>{
+    res.render('index');
+}

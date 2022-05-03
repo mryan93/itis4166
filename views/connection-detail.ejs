@@ -1,10 +1,16 @@
 <%- include('./partials/header.ejs')%>
     <div id="connection-detail-div">
         <h1 id="event-name"><%= connection.name%>, <%= connection.location%>, <%= connection.date%>, <%= connection.startTime%> to <%= connection.endTime%></h1>
-        <form>
-        <button type="submit" formmethod="POST" id="delete-button" formaction="/connections/<%= connection.id%>?_method=DELETE">Delete</button>
-        <button type="submit" formmethod="GET" formaction="/connections/<%= connection.id%>/edit" id="update-button">Update</button>
-        </form>
+        <%if(user == connection.hostName._id){%>
+            <form>
+                <button type="submit" formmethod="POST" id="delete-button" formaction="/connections/<%= connection.id%>?_method=DELETE">Delete</button>
+                <button type="submit" formmethod="GET" formaction="/connections/<%= connection.id%>/edit" id="update-button">Update</button>
+            </form>
+        <%} else{%>
+            <button type="submit" formmethod="POST" id="delete-button" formaction="/connections/<%= connection.id%>/rsvp" value="Yes">Yes</button>
+            <button type="submit" formmethod="POST" formaction="/connections/<%= connection.id%>/rsvp" id="update-button" value="No">No</button>
+            <button type="submit" formmethod="POST" formaction="/connections/<%= connection.id%>/rsvp" id="update-button" value="Maybe">Maybe</button>
+        <%}%>
         <a href="connections.html">
             <img src="<%= connection.image%>" alt="A Yellow Jeep" id="jeep-img">
         </a>
