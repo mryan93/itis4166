@@ -105,7 +105,29 @@ exports.delete = (req, res, next) =>{
 //POST /connections/:id, create a new rsvp
 
 exports.newRsvp = (req, res, next) =>{
-    if(!req.session.user){
-        return res.redirect('../login');
-    }
+    let id = req.params.id;
+    let rsvp = new rsvpModel(req.body);
+    rsvp.name = req.session.user;
+    rsvp.save()
+    .then((rsvp)=>{
+        console.log(rsvp);
+        res.redirect('/connections/' + id);
+    })
+    .catch(err=>next(err));
+}
+
+exports.create = (req, res, next)=>{
+    let connection = new model(req.body); //create document
+    connection.hostName = req.session.user;
+    connection.save() //insert document to db
+    .then((connection)=>{
+        console.log(connection);
+        res.redirect('./connections');
+    })
+    .catch(err=>{
+        if(err.name === 'ValidationError'){
+            err.status = 400;
+        }
+        next(err);
+    });   
 }

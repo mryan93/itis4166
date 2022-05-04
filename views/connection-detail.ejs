@@ -7,9 +7,11 @@
                 <button type="submit" formmethod="GET" formaction="/connections/<%= connection.id%>/edit" id="update-button">Update</button>
             </form>
         <%} else{%>
-            <button type="submit" formmethod="POST" id="delete-button" formaction="/connections/<%= connection.id%>/rsvp" value="Yes">Yes</button>
-            <button type="submit" formmethod="POST" formaction="/connections/<%= connection.id%>/rsvp" id="update-button" value="No">No</button>
-            <button type="submit" formmethod="POST" formaction="/connections/<%= connection.id%>/rsvp" id="update-button" value="Maybe">Maybe</button>
+        <form action="/:id/rsvp" method="POST">
+            <button type="submit" formmethod="POST" id="delete-button" formaction="/connections/<%= connection.id%>/rsvp" value="Yes" name="rsvp">Yes</button>
+            <button type="submit" formmethod="POST" formaction="/connections/<%= connection.id%>/rsvp" id="update-button" value="No" name="rsvp">No</button>
+            <button type="submit" formmethod="POST" formaction="/connections/<%= connection.id%>/rsvp" id="update-button" value="Maybe" name="rsvp">Maybe</button>
+        </form>
         <%}%>
         <a href="connections.html">
             <img src="<%= connection.image%>" alt="A Yellow Jeep" id="jeep-img">

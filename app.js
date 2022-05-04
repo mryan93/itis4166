@@ -11,6 +11,7 @@ const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
 const User = require('./models/user');
 const Connection = require('./models/connection');
+const Rsvp = require('./models/rsvp');
 
 
 // initialize application
