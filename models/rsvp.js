@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const rsvpSchema = new Schema({
     userName: {type: Schema.Types.ObjectId, ref: 'User'},
     connectionName: {type: Schema.Types.ObjectId, ref: 'Connection'},
-    rsvpNum: {type: Number, default: 0},
     response: {type: String, enum: ["Yes", "No", "Maybe"], required: true}
 });
 

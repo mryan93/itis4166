@@ -1,7 +1,8 @@
-const connection = require('../models/connection');
 const model = require('../models/connection');
 const rsvpModel = require('../models/rsvp');
 const {isLoggedIn} = require('../middlewares/auth');
+const userModel = require('../models/user');
+const rsvp = require('../models/rsvp');
 
 // Render all connections
 exports.index = (req, res, next) => {
@@ -91,7 +92,7 @@ exports.update = (req, res, next) =>{
     });
 }
 
-//DELETE /connections/:id, delete the story identified by id
+//DELETE /connections/:id, delete the connection identified by id
 exports.delete = (req, res, next) =>{
     let id = req.params.id;
 
@@ -100,20 +101,41 @@ exports.delete = (req, res, next) =>{
         res.redirect('/connections');
     })
     .catch(err=>next(err));
+
+    //Use a forEach loop to go through all rsvps and use findOneAndDelete?
+    rsvpModel.deleteMany({connectionName: id});
+
 }
 
 //POST /connections/:id, create a new rsvp
 
 exports.newRsvp = (req, res, next) =>{
-    let id = req.params.id;
     let rsvp = new rsvpModel(req.body);
-    rsvp.name = req.session.user;
+    //Returns the id of the user currently in session 
+    rsvp.userName = req.session.user;
+    //Returns the id of the current connection
+    rsvp.connectionName = req.params.id;
     rsvp.save()
     .then((rsvp)=>{
         console.log(rsvp);
+        console.log(rsvp.response);
         res.redirect('/connections/' + id);
     })
     .catch(err=>next(err));
+
+    let id = req.params.id;
+    if(rsvp.response == "Yes"){ 
+        model.findByIdAndUpdate(id, {useFindAndModify: false})
+        .then(connection=>{
+        console.log(connection);
+        connection.rsvpNum = connection.rsvpNum + 1;
+        console.log(connection.rsvpNum);
+        console.log(connection);
+        connection.save();
+        })
+        .catch(err=>next(err));
+    }
+    
 }
 
 exports.create = (req, res, next)=>{
