@@ -95,6 +95,9 @@ exports.update = (req, res, next) =>{
 //DELETE /connections/:id, delete the connection identified by id
 exports.delete = (req, res, next) =>{
     let id = req.params.id;
+    rsvpModel.deleteMany({connectionName: id})
+    .then(rsvp=>console.log(rsvp))
+    .catch(err=>next(err));
 
     model.findByIdAndDelete(id, {useFindAndModify: false})
     .then(connection=>{
@@ -102,14 +105,15 @@ exports.delete = (req, res, next) =>{
     })
     .catch(err=>next(err));
 
-    //Use a forEach loop to go through all rsvps and use findOneAndDelete?
-    rsvpModel.deleteMany({connectionName: id});
-
 }
 
 //POST /connections/:id, create a new rsvp
 
 exports.newRsvp = (req, res, next) =>{
+    let id = req.params.id;
+    rsvpModel.find({connectionName: id, userName: req.session.user})
+    .then(results=>console.log(results))
+    .catch(err=>next(err));
     let rsvp = new rsvpModel(req.body);
     //Returns the id of the user currently in session 
     rsvp.userName = req.session.user;
@@ -123,7 +127,7 @@ exports.newRsvp = (req, res, next) =>{
     })
     .catch(err=>next(err));
 
-    let id = req.params.id;
+    
     if(rsvp.response == "Yes"){ 
         model.findByIdAndUpdate(id, {useFindAndModify: false})
         .then(connection=>{
