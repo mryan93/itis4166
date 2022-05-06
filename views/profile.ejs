@@ -11,17 +11,25 @@
     <p>You have not created any connections</p>
 <%}%>
 
-<%rsvps.forEach(rsvp => {
-    connections.forEach(connection =>{
-        if((connection.id == rsvp.connectionName) && (req.session.user == rsvp.userName)){%>
-            <ul id="connectionList">
-                <a id="profile-connections" href='/connections/<%= connection.id%>'><li id="createdConnections"><%= connection.name%></li></a>
-            </ul>
-        <%}
-    });
-    
-});%>
+<%if(rsvps.length){%>
+    <p id="profile-text">You have rsvp'd for the following connections</p>
+    <%rsvps.forEach(rsvp=> {%>
+        <%allConnections.forEach(connection=> {%>
+            <%if(rsvp.connectionName == connection.id){%>
+                <ul id="connectionList">
+                    <a id="profile-connections" href='/connections/<%= connection.id%>'>
+                        <li id="createdConnections">
+                            <%= connection.name + ': Rsvp?: ' + rsvp.response%>
+                        </li>
+                    </a>
+                </ul>
+            <%}%>
+                
+        <%});%>
+        <%}); } else{%>
+            <p>You have not rsvp'd for any connections</p>
+            <%}%>
+
 
 </body>
 
-<%- include('./partials/footer.ejs')%>

@@ -1,6 +1,7 @@
 const model = require('../models/user');
 const Connection = require('../models/connection');
 const User = require('../models/user');
+const rsvpModel = require('../models/rsvp');
 
 //Render sign up page
 
@@ -11,15 +12,18 @@ exports.new = (req, res)=>{
 //Render profile page
 
 exports.profile = (req, res, next)=>{
+    //Render rsvps here?
     if(!req.session.user){
         req.flash('error', 'You are not logged in');
         return res.redirect('./login');
     } else{
     let id = req.session.user;
-    Promise.all([model.findById(id), Connection.find({hostName: id})])
+    Promise.all([model.findById(id), Connection.find({hostName: id}), rsvpModel.find({userName: id}), Connection.find()])
     .then(results=>{
-        const [user, connections] = results;
-        res.render('./profile', {user, connections});
+        //Sends data for user, connections, and rsvp to the profile page
+        const [user, connections, rsvps, allConnections] = results;
+        res.render('./profile', {user, connections, rsvps, allConnections});
+        console.log(allConnections);
     })
     .catch(err=>next(err));
 }
