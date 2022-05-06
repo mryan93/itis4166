@@ -3,6 +3,7 @@ const rsvpModel = require('../models/rsvp');
 const {isLoggedIn} = require('../middlewares/auth');
 const userModel = require('../models/user');
 const rsvp = require('../models/rsvp');
+const { request } = require('express');
 
 // Render all connections
 exports.index = (req, res, next) => {
@@ -111,24 +112,19 @@ exports.delete = (req, res, next) =>{
 
 exports.newRsvp = (req, res, next) =>{
     let id = req.params.id;
-    rsvpModel.find({connectionName: id, userName: req.session.user})
-    .then(results=>console.log(results))
-    .catch(err=>next(err));
-    let rsvp = new rsvpModel(req.body);
-    //Returns the id of the user currently in session 
-    rsvp.userName = req.session.user;
-    //Returns the id of the current connection
-    rsvp.connectionName = req.params.id;
-    rsvp.save()
-    .then((rsvp)=>{
-        console.log(rsvp);
-        console.log(rsvp.response);
+    
+    rsvpModel.findOneAndUpdate({connectionName: id, userName: req.session.user}, {response: req.body.response}, {new: true, upsert: true, runValidators: true})
+    .then(results=>{
+        console.log(results);
         res.redirect('/connections/' + id);
     })
     .catch(err=>next(err));
 
-    
-    if(rsvp.response == "Yes"){ 
+    //Possible way to update response value?
+    //model.findByIdAndUpdate(id, {rsvpResponse: req.body.response})
+
+
+    if(req.body.response == "Yes"){ 
         model.findByIdAndUpdate(id, {useFindAndModify: false})
         .then(connection=>{
         console.log(connection);
@@ -136,6 +132,17 @@ exports.newRsvp = (req, res, next) =>{
         console.log(connection.rsvpNum);
         console.log(connection);
         connection.save();
+        })
+        .catch(err=>next(err));
+    } else {
+        model.findByIdAndUpdate(id, {useFindAndModify: false})
+        .then(connection=>{
+            if(connection.rsvpNum > 0){
+                connection.rsvpNum =  connection.rsvpNum - 1;
+            }
+            console.log(connection.rsvpNum);
+            console.log(connection);
+            connection.save();
         })
         .catch(err=>next(err));
     }
