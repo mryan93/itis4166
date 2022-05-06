@@ -9,9 +9,10 @@
         <label for="email" id="email-label">Email</label><br>
         <input type="email" id="email" name="email" required><br><br>
         <label for="password" id="password-label">Password</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+        <input type="password" id="password" name="password" minlength="8" maxlength="64" required><br><br>
         <button id="sign-up-button">Sign Up</button><br>
     </form>
 
 </body>
 
+<%- include('./partials/footer.ejs')%>

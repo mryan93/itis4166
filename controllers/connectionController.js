@@ -112,6 +112,7 @@ exports.delete = (req, res, next) =>{
 
 exports.newRsvp = (req, res, next) =>{
     let id = req.params.id;
+    let newResponse = req.body.response;
     
     rsvpModel.findOneAndUpdate({connectionName: id, userName: req.session.user}, {response: req.body.response}, {new: true, upsert: true, runValidators: true})
     .then(results=>{
@@ -123,6 +124,13 @@ exports.newRsvp = (req, res, next) =>{
     //Possible way to update response value?
     //model.findByIdAndUpdate(id, {rsvpResponse: req.body.response})
 
+    /*
+    Promise.all(model.findOneAndUpdate({id}), rsvpModel.find({connectionName: id, userName: req.session.user}))
+    .then(results=>{
+        const [connection, rsvp] = results;
+        if(rsvp.response !== "Yes")
+    })
+    */
 
     if(req.body.response == "Yes"){ 
         model.findByIdAndUpdate(id, {useFindAndModify: false})

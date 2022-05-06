@@ -1,3 +1,4 @@
+const {validationResult} = require('express-validator');
 const model = require('../models/user');
 const Connection = require('../models/connection');
 const User = require('../models/user');
@@ -50,7 +51,17 @@ exports.logout = (req, res, next)=>{
 
 exports.getUserLogin = (req, res, next)=>{
     //authenticate user's login request
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        errors.array().forEach(error=>{
+            req.flash('error', error.msg);
+        });
+        return res.redirect('back');
+    }
     let email = req.body.email;
+    if(email){
+        email = email.toLowerCase();
+    }
     let password = req.body.password;
 
     //get the user that matches the email
@@ -82,7 +93,17 @@ exports.getUserLogin = (req, res, next)=>{
 //create new user
 
 exports.create = (req, res, next)=>{
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        errors.array().forEach(error=>{
+            req.flash('error', error.msg);
+        });
+        return res.redirect('back');
+    }
     let user = new User(req.body);
+    if(user.email){
+        user.email = user.email.toLowerCase();
+    }
     user.save()
     .then(()=>res.redirect('/login'))
     .catch(err=>{
